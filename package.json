@@ -1,18 +1,21 @@
 {
   "name": "p5-ts-parcel",
   "version": "0.1.0",
-  "main": "src/index.js",
   "author": "nbogie",
   "license": "MIT",
   "scripts": {
     "start": "parcel src/index.html",
-    "build": "parcel build"
+    "build": "yarn run clean && parcel build src/index.html",
+    "clean": "rimraf ./dist ./.parcel-cache"
   },
   "devDependencies": {
     "@types/p5": "^1.4.3",
-    "parcel": "^2.7.0"
+    "parcel": "^2.7.0",
+    "rimraf": "^3.0.2",
+    "ts-jest": "^29.0.3"
   },
   "dependencies": {
+    "nice-color-palettes": "^3.0.0",
     "p5": "^1.4.2"
   }
 }
