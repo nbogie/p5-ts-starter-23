@@ -1,11 +1,19 @@
 import p5 from "p5";
 import { collect } from "./utils";
-const palettes = require("nice-color-palettes/100");
-const sketch = function (p) {
+const palettes = require("nice-color-palettes/100") as Palette[];
+type Palette = string[];
+
+const sketch = function (p: p5) {
     function setup() {
         p.noLoop();
         const myCanvas = p.createCanvas(p.windowWidth, p.windowHeight);
         myCanvas.mousePressed(() => p.redraw());
+    }
+
+    function draw() {
+        const epicenters = collect(10, createAnEpicenter);
+        p.background(255);
+        drawLayers(p, epicenters);
     }
 
     interface Epicenter {
@@ -29,17 +37,11 @@ const sketch = function (p) {
         };
     }
 
-    function draw() {
-        const epicenters = collect(10, createAnEpicenter);
-        p.background(255);
-        drawLayers(p, epicenters);
-    }
-
-    function drawLayers(p, epicenters) {
+    function drawLayers(p: p5, epicenters) {
         const palette = p.random(palettes);
         p.noStroke();
         const startingDiameter = p.max(p.width, p.height);
-        const bandThickness = p.random(30, 100);
+        const bandThickness = p.random(30, 85);
         let layerIx = 0;
         let diameter = startingDiameter;
         while (diameter > 0) {
@@ -62,22 +64,26 @@ const sketch = function (p) {
         }
     }
 
-    function drawOneLayer(epicenters, diameter) {
+    function drawOneLayer(epicenters: Epicenter[], diameter: number) {
         for (const c of epicenters) {
-            if (diameter < c.stoppingDiameter) {
-                continue;
-            }
-            p.push();
-            p.translate(c.pos.x, c.pos.y);
-            if (c.shape === "circle") {
-                p.circle(0, 0, diameter);
-            } else {
-                p.rectMode(p.CENTER);
-                p.rotate(c.rotation);
-                p.square(0, 0, diameter);
-            }
-            p.pop();
+            drawOneShapeLayer(c, diameter);
         }
+    }
+
+    function drawOneShapeLayer(c: Epicenter, diameter: number) {
+        if (diameter < c.stoppingDiameter) {
+            return;
+        }
+        p.push();
+        p.translate(c.pos.x, c.pos.y);
+        if (c.shape === "circle") {
+            p.circle(0, 0, diameter);
+        } else {
+            p.rectMode(p.CENTER);
+            p.rotate(c.rotation);
+            p.square(0, 0, diameter);
+        }
+        p.pop();
     }
 
     p.setup = setup;
