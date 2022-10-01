@@ -1,9 +1,7 @@
 import p5 from "p5";
 import { collect } from "./utils";
-
+const palettes = require("nice-color-palettes/100");
 const sketch = function (p) {
-    const palette = ["#f2e3c6", "#ffc6a5", "#e6324b", "#2b2b2b", "#353634"];
-
     function setup() {
         p.noLoop();
         const myCanvas = p.createCanvas(p.windowWidth, p.windowHeight);
@@ -38,9 +36,10 @@ const sketch = function (p) {
     }
 
     function drawLayers(p, centers) {
+        const palette = p.random(palettes); //["#f2e3c6", "#ffc6a5", "#e6324b", "#2b2b2b", "#353634"];
         p.noStroke();
         const startingDiameter = p.max(p.width, p.height);
-        const bandThickness = 30;
+        const bandThickness = p.random(30, 100);
         let layerIx = 0;
         let diameter = startingDiameter;
         while (diameter > 0) {
