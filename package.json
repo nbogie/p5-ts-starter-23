@@ -5,10 +5,14 @@
   "author": "nbogie",
   "license": "MIT",
   "scripts": {
-    "start": "parcel",
+    "start": "parcel src/index.html",
     "build": "parcel build"
   },
   "devDependencies": {
+    "@types/p5": "^1.4.3",
     "parcel": "^2.7.0"
+  },
+  "dependencies": {
+    "p5": "^1.4.2"
   }
 }
