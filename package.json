@@ -1,0 +1,14 @@
+{
+  "name": "p5-ts-parcel",
+  "version": "0.1.0",
+  "main": "src/index.js",
+  "author": "nbogie",
+  "license": "MIT",
+  "scripts": {
+    "start": "parcel",
+    "build": "parcel build"
+  },
+  "devDependencies": {
+    "parcel": "^2.7.0"
+  }
+}
