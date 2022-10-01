@@ -16,8 +16,8 @@ const sketch = function (p: p5) {
         const colour = getRandomColour();
         p.fill(colour);
         p.noStroke();
-        const diameter = p.random(30, 500);
-        p.circle(p.random(p.width), p.random(p.height), diameter);
+        const diameter = p.random(20, 100);
+        p.circle(p.mouseX, p.mouseY, diameter);
     }
 
     function getRandomColour() {
