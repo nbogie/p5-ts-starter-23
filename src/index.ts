@@ -17,7 +17,7 @@ const sketch = function (p) {
 
     type ShapeType = "circle" | "square";
 
-    function createACenter(): Epicenter {
+    function createAnEpicenter(): Epicenter {
         return {
             pos: p.createVector(
                 p.random(-0.2, 1.2) * p.width,
@@ -30,13 +30,13 @@ const sketch = function (p) {
     }
 
     function draw() {
-        const centers = collect(10, createACenter);
+        const epicenters = collect(10, createAnEpicenter);
         p.background(255);
-        drawLayers(p, centers);
+        drawLayers(p, epicenters);
     }
 
-    function drawLayers(p, centers) {
-        const palette = p.random(palettes); //["#f2e3c6", "#ffc6a5", "#e6324b", "#2b2b2b", "#353634"];
+    function drawLayers(p, epicenters) {
+        const palette = p.random(palettes);
         p.noStroke();
         const startingDiameter = p.max(p.width, p.height);
         const bandThickness = p.random(30, 100);
@@ -44,24 +44,39 @@ const sketch = function (p) {
         let diameter = startingDiameter;
         while (diameter > 0) {
             p.fill(palette[layerIx % palette.length]);
-            for (const c of centers) {
-                if (diameter < c.stoppingDiameter) {
-                    continue;
-                }
-                p.push();
-                p.translate(c.pos.x, c.pos.y);
-                if (c.shape === "circle") {
-                    p.circle(0, 0, diameter);
-                } else {
-                    p.rectMode(p.CENTER);
-                    p.rotate(c.rotation);
-                    p.square(0, 0, diameter);
-                }
-                p.pop();
-            }
-
+            setShadows(true);
+            drawOneLayer(epicenters, diameter);
+            setShadows(false);
+            drawOneLayer(epicenters, diameter);
             diameter -= bandThickness;
             layerIx++;
+        }
+    }
+
+    function setShadows(isOn: boolean) {
+        if (isOn) {
+            p.drawingContext.shadowBlur = 10;
+            p.drawingContext.shadowColor = p.color(0, 0, 0, 100);
+        } else {
+            p.drawingContext.shadowBlur = 0;
+        }
+    }
+
+    function drawOneLayer(epicenters, diameter) {
+        for (const c of epicenters) {
+            if (diameter < c.stoppingDiameter) {
+                continue;
+            }
+            p.push();
+            p.translate(c.pos.x, c.pos.y);
+            if (c.shape === "circle") {
+                p.circle(0, 0, diameter);
+            } else {
+                p.rectMode(p.CENTER);
+                p.rotate(c.rotation);
+                p.square(0, 0, diameter);
+            }
+            p.pop();
         }
     }
 
