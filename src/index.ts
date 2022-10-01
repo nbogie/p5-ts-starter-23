@@ -1,5 +1,6 @@
 import p5 from "p5";
 import { collect } from "./utils";
+
 const palettes = require("nice-color-palettes/100") as Palette[];
 type Palette = string[];
 
@@ -7,7 +8,11 @@ const sketch = function (p: p5) {
     function setup() {
         p.noLoop();
         const myCanvas = p.createCanvas(p.windowWidth, p.windowHeight);
-        myCanvas.mousePressed(() => p.redraw());
+        myCanvas.mousePressed(() => {
+            if (p.mouseButton === p.LEFT) {
+                p.redraw();
+            }
+        });
     }
 
     function draw() {
@@ -55,15 +60,6 @@ const sketch = function (p: p5) {
         }
     }
 
-    function setShadows(isOn: boolean) {
-        if (isOn) {
-            p.drawingContext.shadowBlur = 10;
-            p.drawingContext.shadowColor = p.color(0, 0, 0, 100);
-        } else {
-            p.drawingContext.shadowBlur = 0;
-        }
-    }
-
     function drawOneLayer(epicenters: Epicenter[], diameter: number) {
         for (const c of epicenters) {
             drawOneShapeLayer(c, diameter);
@@ -84,6 +80,15 @@ const sketch = function (p: p5) {
             p.square(0, 0, diameter);
         }
         p.pop();
+    }
+
+    function setShadows(isOn: boolean) {
+        if (isOn) {
+            p.drawingContext.shadowBlur = 10;
+            p.drawingContext.shadowColor = p.color(0, 0, 0, 100);
+        } else {
+            p.drawingContext.shadowBlur = 0;
+        }
     }
 
     p.setup = setup;
