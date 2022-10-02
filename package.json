@@ -11,7 +11,8 @@
   },
   "dependencies": {
     "nice-color-palettes": "^3.0.0",
-    "p5": "^1.4.2"
+    "p5": "^1.4.2",
+    "perfect-freehand": "^1.2.0"
   },
   "devDependencies": {
     "@types/jest": "^29.1.1",
