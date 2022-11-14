@@ -1,4 +1,4 @@
-function partition<T>(arr: T[], predFn: (T) => boolean): [T[], T[]] {
+function partition<T>(arr: T[], predFn: (arg: T) => boolean): [T[], T[]] {
     const a: T[] = [];
     const b: T[] = [];
     for (const el of arr) {
