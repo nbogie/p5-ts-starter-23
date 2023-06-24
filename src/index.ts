@@ -1,31 +1,36 @@
 import p5 from 'p5'
 
-const myP5 = new p5(createSketch)
+new p5(createSketch)
 
 function createSketch(p: p5) {
-    //Crucially, assign the setup and draw functions for the p5 createSketch.
-    p.setup = setup
-    p.draw = draw
+    interface Walker {
+        pos: { x: number; y: number }
+    }
+
+    //In instance mode, your previously "global" variables likely can sit here (where they won't conflict with other loaded sketches)
+    let walker: Walker
 
     function setup() {
         const myCanvas = p.createCanvas(p.windowWidth, p.windowHeight)
-
         myCanvas.mousePressed(handleMousePressed)
-
+        walker = { pos: { x: p.width / 2, y: p.height / 2 } }
         // p.noLoop();
     }
 
     function draw() {
-        drawARandomCircle()
+        drawWalker()
+        updateWalker()
     }
 
-    function drawARandomCircle() {
-        const colour = getRandomColour()
-        p.fill(colour)
+    function drawWalker() {
+        p.fill(getRandomColour())
+        p.rectMode(p.CENTER)
+        p.square(walker.pos.x, walker.pos.y, 10)
+    }
 
-        p.noStroke()
-        const diameter = p.random(20, 100)
-        p.circle(p.mouseX, p.mouseY, diameter)
+    function updateWalker() {
+        walker.pos.x += p.random(-10, 10)
+        walker.pos.y += p.random(-10, 10)
     }
 
     function getRandomColour() {
@@ -35,7 +40,12 @@ function createSketch(p: p5) {
 
     function handleMousePressed() {
         p.background('white')
+        walker.pos.x = p.mouseX
+        walker.pos.y = p.mouseY
     }
 
-    // p.windowResized = () => p.resizeCanvas(p.windowWidth, p.windowHeight);
+    //Crucially, assign the setup and draw functions for the p5 createSketch.
+    p.setup = setup
+    p.draw = draw
+    p.windowResized = () => p.resizeCanvas(p.windowWidth, p.windowHeight)
 }
