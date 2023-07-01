@@ -7,7 +7,18 @@ import { letterPetalsFn } from './flowerElements/letterPetals';
 new p5(createSketch);
 
 function createSketch(p: p5) {
-    const palette = ["#f94144", "#f3722c", "#f8961e", "#f9844a", "#f9c74f", "#90be6d", "#43aa8b", "#4d908e", "#577590", "#277da1"]
+    const palette = [
+        '#f94144',
+        '#f3722c',
+        '#f8961e',
+        '#f9844a',
+        '#f9c74f',
+        '#90be6d',
+        '#43aa8b',
+        '#4d908e',
+        '#577590',
+        '#277da1',
+    ];
     const bgColor = 50;
     /** Called once, automatically, by p5.js */
     function setup() {
@@ -38,7 +49,11 @@ function createSketch(p: p5) {
         }
     }
 
-    function drawFlowerAt(pos: { x: number, y: number }, diameter: number, p: p5) {
+    function drawFlowerAt(
+        pos: { x: number; y: number },
+        diameter: number,
+        p: p5
+    ) {
         p.fill(p.random(255));
         p.rectMode(p.CENTER);
         p.push();
@@ -48,14 +63,15 @@ function createSketch(p: p5) {
             concentricCirclesFn,
             petalsFn,
             concentricPolygons,
-            letterPetalsFn
+            letterPetalsFn,
         ];
         const fns = p.shuffle(possibleElements).slice(0, p.random([0, 1, 2]));
         const flowerInfo: FlowerInfo = {
-            diameter, palette
-        }
-        fns.forEach(fn => fn(p, flowerInfo))
-        p.pop()
+            diameter,
+            palette,
+        };
+        fns.forEach((fn) => fn(p, flowerInfo));
+        p.pop();
     }
 
     function handleMousePressed() {

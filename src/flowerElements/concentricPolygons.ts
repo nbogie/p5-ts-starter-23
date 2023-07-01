@@ -1,10 +1,9 @@
-import p5 from "p5";
+import p5 from 'p5';
 
 export function concentricPolygons(p: p5, { palette, diameter }: FlowerInfo) {
-
     p.stroke(p.random(palette));
-    p.noFill()
-    const numSides = p.random([5, 6, 8, 12])
+    p.noFill();
+    const numSides = p.random([5, 6, 8, 12]);
     const angleBetweenPetals = p.TWO_PI / numSides;
     p.beginShape();
     const radius = p.random(0.1, 0.5) * diameter;
@@ -16,10 +15,12 @@ export function concentricPolygons(p: p5, { palette, diameter }: FlowerInfo) {
     p.endShape(p.CLOSE);
 }
 
-function polarToCartesian(angle: number, radius: number): { x: number, y: number } {
+function polarToCartesian(
+    angle: number,
+    radius: number
+): { x: number; y: number } {
     return {
         x: radius * Math.cos(angle),
         y: radius * Math.sin(angle),
-    }
+    };
 }
-
