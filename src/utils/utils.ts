@@ -6,16 +6,16 @@ export function partition<T>(
     arr: T[],
     predicateFunction: (arg: T) => boolean
 ): [T[], T[]] {
-    const a: T[] = []
-    const b: T[] = []
+    const a: T[] = [];
+    const b: T[] = [];
     for (const el of arr) {
         if (predicateFunction(el)) {
-            a.push(el)
+            a.push(el);
         } else {
-            b.push(el)
+            b.push(el);
         }
     }
-    return [a, b]
+    return [a, b];
 }
 
 /**
@@ -27,12 +27,12 @@ export function collect<T>(
     numToCreate: number,
     creatorFunction: (optionalNum?: number) => T
 ): T[] {
-    const outputArray: T[] = []
+    const outputArray: T[] = [];
     for (let i = 0; i < numToCreate; i++) {
-        const nextItem = creatorFunction(i)
-        outputArray.push(nextItem)
+        const nextItem = creatorFunction(i);
+        outputArray.push(nextItem);
     }
-    return outputArray
+    return outputArray;
 }
 
 /** Calls the given function a given number of times, discarding any return from the function.
@@ -44,6 +44,6 @@ export function repeat<T>(
     callbackFunction: (optionalNum?: number) => void
 ): void {
     for (let i = 0; i < numRepeats; i++) {
-        callbackFunction(i)
+        callbackFunction(i);
     }
 }
