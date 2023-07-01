@@ -8,6 +8,7 @@
     "build": "yarn run clean && parcel build src/index.html",
     "clean": "rimraf ./dist ./.parcel-cache",
     "test": "jest",
+    "format": "prettier --write src",
     "type-check": "tsc --noEmit",
     "type-check:watch": "tsc --noEmit --watch"
   },
