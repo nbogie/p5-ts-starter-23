@@ -1,4 +1,4 @@
-import { partition } from './partition'
+import { partition } from './utils'
 test('partition', () => {
     function isEven(n: number): boolean {
         return n % 2 === 0
