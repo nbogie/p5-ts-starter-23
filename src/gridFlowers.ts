@@ -3,6 +3,7 @@ import { concentricCirclesFn } from './flowerElements/concentricCirclesFn';
 import { petalsFn } from './flowerElements/petalsFn';
 import { concentricPolygons } from './flowerElements/concentricPolygons';
 import { letterPetalsFn } from './flowerElements/letterPetals';
+import { concentricArcs } from './flowerElements/concentricArcs';
 
 new p5(createSketch);
 
@@ -40,8 +41,8 @@ function createSketch(p: p5) {
         const numColumns = p.ceil(p.width / cellSize);
         const numRows = p.ceil(p.height / cellSize);
 
-        for (let gridX = 0; gridX < numColumns; gridX++) {
-            for (let gridY = 0; gridY < numRows; gridY++) {
+        for (let gridX = 0; gridX < numColumns + 1; gridX++) {
+            for (let gridY = 0; gridY < numRows + 1; gridY++) {
                 const x = gridX * cellSize;
                 const y = gridY * cellSize;
                 drawFlowerAt({ x, y }, cellSize * 0.8, p);
@@ -63,7 +64,8 @@ function createSketch(p: p5) {
             concentricCirclesFn,
             petalsFn,
             concentricPolygons,
-            letterPetalsFn,
+            concentricArcs,
+            // letterPetalsFn,
         ];
         const fns = p.shuffle(possibleElements).slice(0, p.random([0, 1, 2]));
         const flowerInfo: FlowerInfo = {
